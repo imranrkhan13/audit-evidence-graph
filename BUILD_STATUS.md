@@ -199,3 +199,17 @@ docker compose up --build
   mobile backdrop to cover only the exposed area beside the drawer.
 - TypeScript/Vite and Docker production builds passed; the six frontend API
   regression tests passed. The rebuilt frontend is running locally.
+
+## September 16, 2026 — GitHub and hosted demo
+
+- Created the public `imranrkhan13/audit-evidence-graph` GitHub repository.
+- Published the frontend and FastAPI backend together on Vercel at
+  https://audit-evidence-graph.vercel.app and connected main-branch deployments.
+- Added the hosted adapter with temporary synthetic SQLite data, stable seeded
+  IDs, an initialization lock, and a fresh secret stored in Vercel.
+- Hosted screens explain that changes can reset; local PostgreSQL is untouched.
+- Ignored private environment files, local databases, build outputs and hosting
+  credentials. Source scan found no private environment secret values.
+- Validation: 55 backend tests, six frontend tests, TypeScript/Vite build, hosted
+  adapter smoke test, and Vercel production build passed. Live browser sign-in
+  loaded the expected dashboard totals and document-change tool.

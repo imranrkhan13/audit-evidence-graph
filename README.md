@@ -1,5 +1,9 @@
 # Audit Evidence Graph + Tie-Out Workbench
 
+[Live demo](https://audit-evidence-graph.vercel.app) · [GitHub repository](https://github.com/imranrkhan13/audit-evidence-graph)
+
+Demo login: **auditor / auditor123**. Hosted changes are temporary.
+
 A candidate-project demo built for the Modus MTS role. It shows how financial
 assertions can be traced to source evidence, reconciled against ledgers and
 related documents, routed to human review, and exported with a complete
