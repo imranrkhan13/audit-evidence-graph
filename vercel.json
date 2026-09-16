@@ -7,12 +7,21 @@
   "functions": {
     "api/index.py": {
       "maxDuration": 60,
-      "excludeFiles": "{frontend/**,backend/tests/**,**/__pycache__/**,**/*.db,**/*.sqlite*,.env,.env.*,**/node_modules/**}"
+      "excludeFiles": "{frontend/**,backend/tests/**,**/__pycache__/**,**/*.db,**/*.sqlite*,.env,.env.*,**/node_modules/**}",
+      "includeFiles": "backend/app/**"
     }
   },
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/index.py" },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
   ]
 }
