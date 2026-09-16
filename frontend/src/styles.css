@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #faf8f5;
+  color: #1c2333;
+}
+
+.status-badge {
+  @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-wide border;
+}
+.status-pass { @apply bg-green-50 text-pass border-pass/40; }
+.status-needs_review { @apply bg-amber-50 text-review border-review/40; }
+.status-fail { @apply bg-red-50 text-fail border-fail/40; }
+.status-pending { @apply bg-stone-100 text-navy-700 border-navy-700/20; }
+
+.panel {
+  @apply bg-white border border-navy-900/10 rounded-sm;
+}
