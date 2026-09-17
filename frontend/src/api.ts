@@ -10,7 +10,7 @@ async function request(path: string, options: RequestInit = {}) {
   const token = getToken();
   const headers: Record<string, string> = { ...(options.headers as Record<string, string> || {}) };
   if (token && path !== "/auth/login") headers["Authorization"] = `Bearer ${token}`;
-  if (options.body && !(options.body instanceof URLSearchParams)) {
+  if (options.body && !(options.body instanceof URLSearchParams) && !headers["Content-Type"]) {
     headers["Content-Type"] = "application/json";
   }
   const resp = await fetch(`${BASE}${path}`, { ...options, headers });
@@ -89,4 +89,12 @@ export const riskApi = {
 export const impactApi = {
   documents: (engagementId: string) => request(`/impact/documents?engagement_id=${encodeURIComponent(engagementId)}`),
   preview: (documentId: string, amount?: number) => request(`/impact/${encodeURIComponent(documentId)}${amount === undefined ? '' : `?proposed_amount=${amount}`}`),
+};
+
+export const receiptApi = {
+  status: () => request("/receipts/status"),
+  extract: (file: File, signal: AbortSignal) => request("/receipts/extract", {
+    method: "POST", body: file, signal,
+    headers: { "Content-Type": file.type, "X-Receipt-Consent": "true" },
+  }),
 };

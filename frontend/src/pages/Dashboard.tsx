@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api";
 import { AuditEvent, Dashboard as DashboardData, Engagement, ReviewTask } from "../types";
+import "../receipts.css";
 import Icon, { IconName } from "../components/Icon";
 
 export default function Dashboard() {
@@ -47,6 +48,7 @@ export default function Dashboard() {
   return <div className="app-page dashboard-page">
     <div className="app-page-heading"><div><p className="app-eyebrow">AUDIT WORKSPACE</p><h1>Dashboard</h1><p>Your project, the checks so far, and what needs attention.</p></div><Link to="/review" className="app-button primary">Open review queue <Icon name="arrow" size={17}/></Link></div>
     <div className="project-banner"><span className="project-banner-icon"><Icon name="documents" size={22}/></span><div><strong>{project.client_name}</strong><p>Audit period · {project.period_start} — {project.period_end}</p></div><span className="project-status"><i/>{project.status.replace(/_/g, " ")}</span></div>
+    <div className="receipt-quick-link"><div><strong>Try it with your own receipt</strong><p>Upload a photo or PDF, read the details and check the totals.</p></div><Link to="/receipts" className="app-button primary">Read a receipt <Icon name="arrow" size={16}/></Link></div>
     <section className="dashboard-metrics" aria-label="Audit summary">{metrics.map(metric => <Link key={metric.label} to={metric.to} className={`metric-card ${metric.tone}`}><div className="metric-card-top"><span>{metric.label}</span><span className="metric-icon"><Icon name={metric.icon} size={18}/></span></div><strong>{metric.value.toString().padStart(2, "0")}</strong><small>{metric.note}</small></Link>)}</section>
     <div className="dashboard-columns">
       <section className="workspace-card review-card"><div className="card-heading"><div><h2>Needs your attention</h2><p>Open review tasks, ordered by recorded financial impact.</p></div><Link to="/review">View all <Icon name="arrow" size={15}/></Link></div>

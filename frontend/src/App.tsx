@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { AUTH_REQUIRED_EVENT } from "./api";
 import WorkspaceLayout from "./components/WorkspaceLayout";
+import Receipts from "./pages/Receipts";
 import Documents from "./pages/Documents";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -47,6 +48,7 @@ export default function App() {
       <Route path="/login" element={isAuthenticated() ? <Navigate to="/dashboard" replace /> : <Login />} />
       <Route element={<RequireAuth><WorkspaceLayout /></RequireAuth>}>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/receipts" element={<Receipts />} />
         <Route path="/documents" element={<Documents />} />
         <Route path="/documents/:id" element={<DocumentViewer />} />
         <Route path="/change-impact" element={<ChangeImpact />} />

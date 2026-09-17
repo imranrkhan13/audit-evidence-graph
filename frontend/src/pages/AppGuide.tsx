@@ -27,7 +27,9 @@ export default function AppGuide({ publicView = false }: { publicView?: boolean 
           <p>The app can show the <strong>$250 difference</strong> and the items that use that invoice. A person then decides what to investigate. Trying a new amount in the preview does not save the change or approve anything.</p>
         </section>
         <section className="guide-section">
-          <h2>Try it in three steps</h2>
+          <h2>Use your own receipt</h2>
+          <p>Open <Link to="/receipts">Read a receipt</Link>, choose a photo or PDF, and allow Interfaze to read it. Check and correct the details, compare the totals, then download JSON or CSV. Uploaded receipts are not saved in the shared demo database. Keep a download: results disappear when you refresh, close the tab or sign out.</p>
+          <h2>Explore sample records in three steps</h2>
           <ol className="guide-steps">
             <li><strong>Start on the Dashboard.</strong> See which items passed and which need a closer look.</li>
             <li><strong>Choose a document.</strong> On “Document changes,” pick an invoice. Enter a new total and select “See what needs checking.”</li>
@@ -52,7 +54,7 @@ export default function AppGuide({ publicView = false }: { publicView?: boolean 
         </section>
         <section className="guide-section">
           <h2>What this demo can and cannot tell you</h2>
-          <p>The invoices, businesses, and transactions are made-up examples. Values read from documents are prepared in advance; this demo does not run AI or scan your files.</p>
+          <p>The invoices, businesses, and transactions are made-up examples. Values read from documents are prepared in advance; these sample checks do not use AI. The separate “Read a receipt” page uses Interfaze to extract details from files you choose to upload.</p>
           <p>The checks use fixed rules. The change preview only compares an invoice amount with one matching US-dollar accounting entry. It does not run every check again or change earlier approvals.</p>
           <p>The app helps a person find and review problems. It does not issue an audit opinion or replace an accountant. It is an independent project inspired by Modus, with no connection to Modus’s live systems.</p>
         </section>

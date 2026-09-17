@@ -213,3 +213,21 @@ docker compose up --build
 - Validation: 55 backend tests, six frontend tests, TypeScript/Vite build, hosted
   adapter smoke test, and Vercel production build passed. Live browser sign-in
   loaded the expected dashboard totals and document-change tool.
+
+## September 17, 2026 — Real receipt extraction
+
+- Added `/receipts` with photo/PDF upload, explicit processing consent, Interfaze
+  structured extraction, original-file preview, field and line-item corrections,
+  arithmetic checks, optional expected-total comparison, review state, and JSON
+  or CSV exports. Results remain in tab memory and never enter shared demo data.
+- Added server-side 3 MB/type/image/PDF validation, a three-page PDF limit,
+  authentication, no-store responses, provider timeouts, sanitized errors,
+  best-effort per-instance throttling, ZDR and cache-bypass headers.
+- Configured the owner-provided key only in Vercel's secret environment storage.
+  The owner confirmed free credits only and paid billing disabled. Application
+  throttling is not a global spending cap; provider controls remain required.
+- Tests: 72 backend and 11 frontend tests passed; TypeScript/Vite build passed.
+- A live Interfaze request extracted the correct USD 19.80 total and two line
+  items from a clearly labeled, generated synthetic receipt.
+- Durable private accounts, cloud receipt storage, and linking real receipts
+  into the shared sample audit are intentionally not part of this upload flow.

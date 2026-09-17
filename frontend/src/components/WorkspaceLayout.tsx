@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar";
 import TopBar from "./TopBar";
 import { pageTitle } from "../navigation";
 import "../workspace.css";
+import { ReceiptWorkspace } from "./ReceiptWorkspace";
 import { hostedDemo } from "../demo";
 
 export default function WorkspaceLayout() {
@@ -46,15 +47,15 @@ export default function WorkspaceLayout() {
     };
   }, [mobile, open]);
 
-  return <div className={`workspace-shell ${collapsed ? "sidebar-is-collapsed" : ""}`}>
+  return <ReceiptWorkspace><div className={`workspace-shell ${collapsed ? "sidebar-is-collapsed" : ""}`}>
     <a className="workspace-skip" href="#workspace-content">Skip to page content</a>
     {mobile && open && <button className="sidebar-backdrop" onClick={() => setOpen(false)} aria-label="Close navigation backdrop" tabIndex={-1}/>}
     <Sidebar ref={sidebar} collapsed={collapsed} mobile={mobile} open={open} onToggle={() => setCollapsed(value => !value)} onClose={() => setOpen(false)}/>
     <div ref={content} className="workspace-body">
       <TopBar title={pageTitle(location.pathname)} mobile={mobile} open={open} onOpen={() => setOpen(true)} buttonRef={menuButton}/>
-      {hostedDemo && <div className="hosted-demo-note">Public sample workspace · Changes are temporary and may reset. Download a report to keep a copy.</div>}
+      {hostedDemo && location.pathname !== "/receipts" && <div className="hosted-demo-note">Public sample workspace · Changes are temporary and may reset. Download a report to keep a copy.</div>}
       <main id="workspace-content" className="workspace-content" tabIndex={-1}><Outlet/></main>
-      <footer className="workspace-footer">Independent demo · Made-up sample records · No live Modus connection</footer>
+      <footer className="workspace-footer">Independent project · Uploaded receipts stay separate from sample records · No live Modus connection</footer>
     </div>
-  </div>;
+  </div></ReceiptWorkspace>;
 }

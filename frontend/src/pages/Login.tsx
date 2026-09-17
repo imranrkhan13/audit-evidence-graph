@@ -33,8 +33,8 @@ export default function Login() {
       <div className="panel shadow-sm p-8 w-full max-w-sm">
         <Link to="/" className="text-xs text-accent">← Product overview</Link>
         <h1 className="text-lg font-semibold text-navy-900 mt-4">Sign in to the demo</h1>
-        <p className="text-sm text-navy-700/70 mt-1 mb-4">Explore sample invoices, check the numbers, and see what needs a closer look. All company and financial data is made up for this demo.</p>
-        {hostedDemo && <p className="text-sm bg-amber-50 rounded p-3 mb-4">This public demo uses shared sample records. Changes are temporary and may reset. Please use only made-up information.</p>}
+        <p className="text-sm text-navy-700/70 mt-1 mb-4">Explore sample invoices, or upload your own receipt to read and check its details. The shared sample workspace uses made-up companies and records.</p>
+        {hostedDemo && <p className="text-sm bg-amber-50 rounded p-3 mb-4">This public demo uses shared sample records. Changes are temporary and may reset. Use “Read a receipt” for your own uploads; those are kept out of the sample records.</p>}
         {location.state?.sessionExpired && <p role="status" className="text-sm bg-amber-50 border border-review/30 rounded p-3 mb-4">{SESSION_EXPIRED_MESSAGE}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>

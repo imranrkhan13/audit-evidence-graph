@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import Base, engine
-from app.routers import auth, engagements, assertions, documents, review, audit, export, risk, impact
+from app.routers import auth, engagements, assertions, documents, review, audit, export, risk, impact, receipts
 
 Base.metadata.create_all(bind=engine)
 
@@ -29,6 +29,7 @@ app.include_router(audit.router)
 app.include_router(export.router)
 app.include_router(risk.router)
 app.include_router(impact.router)
+app.include_router(receipts.router)
 
 
 @app.get("/health")

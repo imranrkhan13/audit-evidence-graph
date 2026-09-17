@@ -3,6 +3,7 @@ import type { IconName } from "./components/Icon";
 export const navigation: { label: string; items: { to: string; label: string; icon: IconName }[] }[] = [
   { label: "Workspace", items: [
     { to: "/dashboard", label: "Dashboard", icon: "dashboard" },
+    { to: "/receipts", label: "Read a receipt", icon: "documents" },
     { to: "/documents", label: "Documents", icon: "documents" },
     { to: "/assertions", label: "Items to check", icon: "checks" },
   ] },

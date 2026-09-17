@@ -9,6 +9,6 @@ export default function TopBar({ title, mobile, open, onOpen, buttonRef }: {
       {mobile && <button ref={buttonRef} className="workspace-icon-button" onClick={onOpen} aria-label="Open navigation" aria-expanded={open} aria-controls="workspace-sidebar"><Icon name="menu"/></button>}
       <span className="topbar-workspace">Workspace</span><span className="breadcrumb-divider">/</span><span className="topbar-page">{title}</span>
     </div>
-    <div className="topbar-actions"><span className="demo-pill"><i/> Demo data</span><Link to="/guide" className="workspace-icon-button" aria-label="Help and simple guide" title="Help and simple guide"><Icon name="help" size={19}/></Link></div>
+    <div className="topbar-actions"><span className="demo-pill"><i/> {title === "Read a receipt" ? "Your uploads" : "Demo data"}</span><Link to="/guide" className="workspace-icon-button" aria-label="Help and simple guide" title="Help and simple guide"><Icon name="help" size={19}/></Link></div>
   </header>;
 }
