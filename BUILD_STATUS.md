@@ -231,3 +231,8 @@ docker compose up --build
   items from a clearly labeled, generated synthetic receipt.
 - Durable private accounts, cloud receipt storage, and linking real receipts
   into the shared sample audit are intentionally not part of this upload flow.
+
+- Live browser verified the full upload flow, correct extraction of the test
+  receipt, edited-total differences, review state and in-tab navigation.
+  Export controls use direct download links; in-app saved-file location was
+  not confirmed by the browser automation's download event.

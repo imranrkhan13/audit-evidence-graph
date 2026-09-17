@@ -8,10 +8,13 @@ import "../receipts.css";
 
 const MAX_BYTES = 3 * 1024 * 1024;
 const allowed = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
-function saveFile(contents: string, filename: string, mime: string) {
-  const url = URL.createObjectURL(new Blob([contents], {type:mime}));
-  const link = document.createElement("a"); link.href = url; link.download = filename; link.click();
-  setTimeout(() => URL.revokeObjectURL(url), 10000);
+function DownloadLink({contents, filename, mime, primary, children}: {contents:string; filename:string; mime:string; primary?:boolean; children:React.ReactNode}) {
+  const [url,setUrl] = useState("");
+  useEffect(()=>{
+    const next = URL.createObjectURL(new Blob([contents],{type:mime})); setUrl(next);
+    return ()=>URL.revokeObjectURL(next);
+  },[contents,mime]);
+  return <a className={`app-button ${primary ? "primary" : ""}`} href={url || undefined} download={filename}>{children}</a>;
 }
 
 export default function Receipts() {
@@ -113,11 +116,11 @@ export default function Receipts() {
           <div className="receipt-checks">{checks.map(check=><div className={`receipt-check ${check.status}`} key={check.label}><span>{check.status === "pass" ? "✓" : check.status === "review" ? "!" : "—"}</span><div><strong>{check.label}</strong><p>{check.detail}</p></div></div>)}</div>
           <p className="receipt-hint">Blank tax, tip and discount count as zero. Comparisons use a 0.01 tolerance and do not prove the receipt is valid. No bank or accounting system is connected.</p>
           <label className="receipt-consent receipt-reviewed"><input type="checkbox" checked={record.reviewed} onChange={e=>change({reviewed:e.target.checked})}/><span>I compared these details with the original receipt.</span></label>
-          <div className="receipt-actions"><button className="app-button primary" onClick={()=>saveFile(JSON.stringify(receiptExport(record),null,2),"receipt-report.json","application/json")}>Download JSON <Icon name="download" size={16}/></button><button className="app-button" onClick={()=>saveFile(receiptCsv([record]),"receipt.csv","text/csv;charset=utf-8")}>Download CSV <Icon name="download" size={16}/></button></div>
+          <div className="receipt-actions"><DownloadLink contents={JSON.stringify(receiptExport(record),null,2)} filename="receipt-report.json" mime="application/json" primary>Download JSON <Icon name="download" size={16}/></DownloadLink><DownloadLink contents={receiptCsv([record])} filename="receipt.csv" mime="text/csv;charset=utf-8">Download CSV <Icon name="download" size={16}/></DownloadLink></div>
           <details className="receipt-transcript"><summary>Text read from the receipt</summary><pre>{record.original.source_text || "No readable text returned."}</pre></details>
         </div>}
       </section>
     </div>
-    {records.length > 0 && <section className="workspace-card receipt-history"><div className="card-heading"><div><h2>Receipts in this tab</h2><p>{records.length} of 10 · Removed when you refresh, close the tab or sign out.</p></div><button className="app-button" onClick={()=>saveFile(receiptCsv(records),"receipts.csv","text/csv;charset=utf-8")}>Export all CSV</button></div><div className="receipt-records">{records.map(r=><button key={r.id} disabled={busy} aria-pressed={record?.id===r.id} onClick={()=>{setSelected(r.id);setFile(null);setConfirmDelete(false);setError("");}}><Icon name="documents"/><span><strong>{r.edited.merchant || r.filename}</strong><small>{r.filename} · {r.edited.date || "Date unknown"}</small></span><b>{r.edited.total ?? "—"} {r.edited.currency}</b><span className={`receipt-status ${r.reviewed ? "reviewed" : ""}`}>{r.reviewed ? "Reviewed" : "Check details"}</span></button>)}</div><div className="receipt-remove">{confirmDelete ? <><span>Remove this receipt and its edits from this tab?</span><button onClick={()=>{setRecords(current=>current.filter(r=>r.id!==record?.id));setSelected("");setFile(null);setConfirmDelete(false);}}>Yes, remove it</button><button onClick={()=>setConfirmDelete(false)}>Keep it</button></> : <button disabled={busy} onClick={()=>setConfirmDelete(true)}>Remove selected receipt</button>}</div></section>}
+    {records.length > 0 && <section className="workspace-card receipt-history"><div className="card-heading"><div><h2>Receipts in this tab</h2><p>{records.length} of 10 · Removed when you refresh, close the tab or sign out.</p></div><DownloadLink contents={receiptCsv(records)} filename="receipts.csv" mime="text/csv;charset=utf-8">Export all CSV</DownloadLink></div><div className="receipt-records">{records.map(r=><button key={r.id} disabled={busy} aria-pressed={record?.id===r.id} onClick={()=>{setSelected(r.id);setFile(null);setConfirmDelete(false);setError("");}}><Icon name="documents"/><span><strong>{r.edited.merchant || r.filename}</strong><small>{r.filename} · {r.edited.date || "Date unknown"}</small></span><b>{r.edited.total ?? "—"} {r.edited.currency}</b><span className={`receipt-status ${r.reviewed ? "reviewed" : ""}`}>{r.reviewed ? "Reviewed" : "Check details"}</span></button>)}</div><div className="receipt-remove">{confirmDelete ? <><span>Remove this receipt and its edits from this tab?</span><button onClick={()=>{setRecords(current=>current.filter(r=>r.id!==record?.id));setSelected("");setFile(null);setConfirmDelete(false);}}>Yes, remove it</button><button onClick={()=>setConfirmDelete(false)}>Keep it</button></> : <button disabled={busy} onClick={()=>setConfirmDelete(true)}>Remove selected receipt</button>}</div></section>}
   </div>;
 }
